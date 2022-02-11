@@ -1,22 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
+// import { Details } from "./Details";
+import "./App.css";
+import { Details } from "./Details";
 
 function App() {
+  const [data, setData] = useState([]);
+
+  const fakeData = [
+    {
+      id: uuidv4(),
+      title: "John Smith",
+      desc: "Some Private information about John Smith",
+    },
+    {
+      id: uuidv4(),
+      title: "Ready Freddy",
+      desc: "Some Private information about Ready Freddy",
+    },
+    {
+      id: uuidv4(),
+      title: "Mr Man",
+      desc: "Some Private information about Mr Man",
+    },
+  ];
+
+  useEffect(() => {
+    setData(fakeData);
+  }, []);
+
+  console.log(data);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div className="header-content">
+          {data.map(({ id, title, desc }) => {
+            return (
+              <>
+                <Details key={id} id={id} title={title} desc={desc} />
+              </>
+            );
+          })}
+        </div>
       </header>
     </div>
   );
